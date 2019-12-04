@@ -31,10 +31,13 @@ public class SampleController {
         .bno(i)
         .title("Title"+i)
         .content("Content"+i)
+        .writer("u"+(i%10))
         .build())
         .collect(Collectors.toList());
 
         model.addAttribute("list", list);
+        model.addAttribute("count", list.size());
+        model.addAttribute("msg", "BoardList" );
     }
 
     

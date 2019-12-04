@@ -9,17 +9,27 @@
 <body>
 
 <!--<h1>[[${list}]]</h1>-->
-    <ul>
+    <ul th:with="target='u5'">
         <li th:each=" board, state : ${list}">
         <!-- class설정도 가능. 자동완성은 안되지만 대부분의 attribute를 th:뒤에 사용 가능 -->
+<!--
         <p th:class="${state.odd?'odd':'even'}"></p>
         <p th:text="${state.count}"></p>
         <p th:text="${state.index}"></p>
-        <p th:text="${board.bno}"></p>
+-->
+        <a href="" th:if="${board.writer == target}"><p th:text="${board.bno}"></p></a>
         <p th:text="${board.title}"></p>
-        <p th:text="${board.content}"></p>
-    </li>
+        <p th:text="${board.writer}"></p>
+        </li>
     </ul>
+
+    <script th:inline="javascript"> 
+        /* = inline="something" something 타입으로 객체를 표현해줘!   */
+        /* 개발자도구 확인해보면 객체가 Json처리되어있음. */
+        var list = [[${list}]];
+        var count = [[${count}]];
+        var msg = [[${msg}]];
+    </script>
     
 </body>
 </html>

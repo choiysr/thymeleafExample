@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Layout page</title>
+</head>
+
+<body>
+    <header>
+        <h1>My website</h1>
+    </header>
+
+    <section layout:fragment="content">
+        <p>Page content goes here</p>
+    </section>
+
+    <footer>
+        <p>My footer</p>
+        <p layout:fragment="custom-footer">Custom footer here</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+    <!-- custom javascript  -->
+    <th:block layout:fragment="content"></th:block>
+    <!-- fragment : 얘는 나중에 바꿔칠수 있는 애구나~ -->
+</body>
+
+</html>

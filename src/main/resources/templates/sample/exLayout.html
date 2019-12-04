@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/blank}">
+<!-- html확장자를 붙이지 않는것에 유의 -->
+
+<div layout:fragment="content">
+    <p>This is a paragraph from content page 1</p>
+
+    <!-- 절대경로와 상대경로를 고민할 필요가 없다(구분이 없음)-->
+    <a th:href="@{/ex1}">A1</a>
+    <a th:href="@{~/ex1}">A2</a>
+    <a th:href="@{http://localhost:8080/sample/ex1}">A3</a>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        alert("Java Script Block!!!");</script>

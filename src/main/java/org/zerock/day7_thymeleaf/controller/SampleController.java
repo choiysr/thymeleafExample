@@ -40,5 +40,10 @@ public class SampleController {
         model.addAttribute("msg", "BoardList" );
     }
 
+    @GetMapping("/exLayout")
+    public void exLayout() {
+        
+    }
+
     
 }

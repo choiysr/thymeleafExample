@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font: 13px Helvetica, Arial;
+        }
+
+        form {
+            background: #000;
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+
+        form button {
+            width: 9%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #messages li {
+            padding: 5px 10px;
+        }
+
+        #messages li:nth-child(odd) {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="listOfUsers">
+    </div>
+    <div>
+        <p><input type="text" name="to" id="to" placeholder="TO"></p>
+        <p><input type="text" name="msg" id="msg" placeholder="MESSAGE"></p>
+        <p><button id="sbtn">Secret Message</button></p>
+    </div>
+    <ul id="messages"></ul>
+    <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    
+    <script th:src=@{~/js/socket.io.js}></script>
+    <script>
+
+ 
+
+        $(function () {
+            var nickname = prompt("NICKNAME: "); // 닉네임 받기
+            // 서버사이드에서 이 닉네임을 받으면 계속 유지해줘야 함. 
+
+            var socket = io("http://localhost:3000"); // 다른사람꺼로 들어갈수있다. 
+
+            socket.emit("c-setnick",nickname)
+            $('form').submit(function (e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit('c-msg', nickname+" : "+$('#m').val());
+                $('#m').val('');
+                return false;
+            });
+
+            socket.on('s-msg', function (msg) {
+                $('#messages').append($('<li>').text(msg));
+            });
+
+            socket.on('addUserInList', function(user) {
+                $('#listOfUsers').append($('<li>').text(user));
+            });
+
+            // 요고 나중에 완성해보자  - 사용자 나가면 리스트 지우기 
+/*             socket.on('deleteUserInList', function(user) {
+                $('#listOfUsers').
+            })
+ */
+            $("#sbtn").on("click",function() {
+            var to = $("#to").val();
+            var msg = $("#msg").val();
+
+            var msgObj = {to:to, msg:msg};
+            
+            console.log(msgObj);
+            socket.emit("c-secret", msgObj);
+        })
+        });
+        
+    </script>
+</body>
+
+</html>

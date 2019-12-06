@@ -95,11 +95,7 @@
                 $('#listOfUsers').append($('<li>').text(user));
             });
 
-            // 요고 나중에 완성해보자  - 사용자 나가면 리스트 지우기 
-/*             socket.on('deleteUserInList', function(user) {
-                $('#listOfUsers').
-            })
- */
+
             $("#sbtn").on("click",function() {
             var to = $("#to").val();
             var msg = $("#msg").val();
